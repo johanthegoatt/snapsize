@@ -1,0 +1,10 @@
+{
+  "name": "snapsize",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Turn any phone photo into a passport or visa photo at the right size, and a 4x6 print sheet.",
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
