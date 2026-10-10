@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'none'; form-action 'none'; base-uri 'none'">
+<title>Snapsize: passport photos at the right size</title>
+<meta name="description" content="Turn a phone photo into a passport or visa photo at the exact size, with the head checked against the rules, plus a 4x6 print sheet for the photo counter.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fbf5ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1714" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='8' width='26' height='19' rx='5' fill='%23ef6f4c'/%3E%3Crect x='10' y='4' width='10' height='6' rx='2' fill='%23ef6f4c'/%3E%3Ccircle cx='16' cy='17' r='6' fill='%23fff6ea'/%3E%3Ccircle cx='16' cy='17' r='3' fill='%232a1f17'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="brand" href="./">
+    <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect x="3" y="8" width="26" height="19" rx="5" class="b-body"/><rect x="10" y="4" width="10" height="6" rx="2" class="b-body"/><circle cx="16" cy="17" r="6" class="b-lens"/><circle cx="16" cy="17" r="3" class="b-ink"/></svg>
+    <span>Snapsize</span>
+  </a>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Passport photo, the right size, from your own phone.</h1>
+    <p class="lede">Pick your document, add a photo and mark the top of your head and your chin. Snapsize cuts it to the exact size, checks it against the rules, and makes a file for online forms plus a sheet you print as a normal 4&nbsp;x&nbsp;6 photo.</p>
+  </section>
+
+  <section class="step" id="step-doc" aria-labelledby="h-doc">
+    <h2 id="h-doc"><span class="num">1</span> What is the photo for?</h2>
+    <div class="docs" role="radiogroup" aria-labelledby="h-doc" id="docs"></div>
+  </section>
+
+  <section class="step" id="step-photo" aria-labelledby="h-photo">
+    <h2 id="h-photo"><span class="num">2</span> Add your photo</h2>
+    <label class="drop" id="drop">
+      <input type="file" id="file" accept="image/*">
+      <span class="drop-big">Choose a photo</span>
+      <span class="drop-small">or drop one here. A phone photo is perfect.</span>
+    </label>
+    <details class="tips">
+      <summary>How to take a good one</summary>
+      <ul>
+        <li>Stand in front of a plain, light wall, about half a metre away from it so you don't cast a shadow.</li>
+        <li>Face a window. Light from the front, not from above or behind.</li>
+        <li>Ask someone to hold the phone at your eye height, about 1 to 1.5 metres away. Use the back camera, not selfie mode.</li>
+        <li>Glasses off, mouth closed, eyes open, hair away from your face.</li>
+        <li>Leave room above your head and show your shoulders. Snapsize does the cutting.</li>
+      </ul>
+    </details>
+    <p class="err" id="photo-err" role="alert" hidden></p>
+  </section>
+
+  <section class="step" id="step-mark" aria-labelledby="h-mark" hidden>
+    <h2 id="h-mark"><span class="num">3</span> Mark your head</h2>
+    <p class="hint">Drag the <b class="c-top">top line</b> to the very top of your head (hair included) and the <b class="c-chin">bottom line</b> to the bottom of your chin. Drag sideways to centre on your face. Arrow keys work too.</p>
+    <div class="stage" id="stage">
+      <img id="src-img" alt="Your photo">
+      <div class="mark mark-top" id="m-top" role="slider" tabindex="0" aria-label="Top of head" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="pill">Top of head</span></div>
+      <div class="mark mark-chin" id="m-chin" role="slider" tabindex="0" aria-label="Chin" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="pill">Chin</span></div>
+      <div class="frame" id="frame" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="step" id="step-check" aria-labelledby="h-check" hidden>
+    <h2 id="h-check"><span class="num">4</span> Check it</h2>
+    <div class="check-grid">
+      <figure class="preview">
+        <canvas id="preview" width="420" height="540" aria-label="Your finished photo"></canvas>
+        <figcaption>
+          <label class="toggle"><input type="checkbox" id="guides" checked> Show size guides</label>
+          <span id="size-note"></span>
+        </figcaption>
+      </figure>
+      <div>
+        <ul class="checks" id="checks" aria-live="polite"></ul>
+        <fieldset class="self">
+          <legend>You check these</legend>
+          <label><input type="checkbox" class="selfcheck"> No glasses</label>
+          <label><input type="checkbox" class="selfcheck"> Mouth closed, eyes open, looking at the camera</label>
+          <label><input type="checkbox" class="selfcheck"> Nothing covering your face (hair, hat, hands)</label>
+          <label><input type="checkbox" class="selfcheck"> No filters, beauty mode or edits</label>
+          <label><input type="checkbox" class="selfcheck"> <span>Taken in the last 6 months <span class="muted">(UK: last month)</span></span></label>
+        </fieldset>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" id="step-save" aria-labelledby="h-save" hidden>
+    <h2 id="h-save"><span class="num">5</span> Save it</h2>
+    <div class="saves">
+      <div class="save">
+        <h3>For an online form</h3>
+        <p id="digital-note">A JPEG at the size the form asks for.</p>
+        <button class="btn" id="dl-digital" type="button">Save photo file</button>
+      </div>
+      <div class="save">
+        <h3>To print</h3>
+        <p id="sheet-note">A 4 x 6 photo with your photos on it and lines to cut along.</p>
+        <button class="btn" id="dl-sheet" type="button">Save print sheet</button>
+        <p class="small">Order it as a normal 4 x 6 (10 x 15 cm) print at any photo counter or kiosk. Choose <b>no cropping / fit</b> if asked, so the size stays exact. Then cut along the grey lines.</p>
+      </div>
+    </div>
+    <canvas id="sheet-preview" class="sheet-preview" width="600" height="400" aria-label="Print sheet preview"></canvas>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p>Made by <a href="https://johanthegoat.xyz">Johan</a> · <a href="https://github.com/johanthegoatt/snapsize">Source</a></p>
+</footer>
+
+<div class="mascot-dock" id="snap-dock">
+  <p class="bubble" id="snap-bubble" role="status" aria-live="polite"></p>
+  <button class="mascot" id="snap" type="button" aria-label="Flash the camera. Tap for a tip." data-mood="sleepy">
+    <svg viewBox="0 0 120 100" width="96" height="80" aria-hidden="true">
+      <rect class="s-bump" x="22" y="12" width="30" height="16" rx="5"/>
+      <rect class="s-flash" x="74" y="16" width="20" height="11" rx="3"/>
+      <rect class="s-body" x="8" y="22" width="104" height="70" rx="18"/>
+      <circle class="s-ring" cx="60" cy="58" r="25"/>
+      <circle class="s-lens" cx="60" cy="58" r="17"/>
+      <g class="s-eyes">
+        <g class="s-eye"><ellipse class="s-white" cx="51" cy="54" rx="6.5" ry="7.5"/><circle class="s-pupil" cx="51" cy="55" r="3.4"/></g>
+        <g class="s-eye"><ellipse class="s-white" cx="69" cy="54" rx="6.5" ry="7.5"/><circle class="s-pupil" cx="69" cy="55" r="3.4"/></g>
+      </g>
+      <path class="s-lids" d="M44 54h14M62 54h14"/>
+      <path class="s-mouth" d="M53 67q7 6 14 0"/>
+      <circle class="s-cheek" cx="24" cy="70" r="5"/>
+      <circle class="s-cheek" cx="96" cy="70" r="5"/>
+    </svg>
+  </button>
+  <button class="tuck" id="snap-hide" type="button" aria-label="Hide Flash">×</button>
+</div>
+<div class="flashout" id="flashout" aria-hidden="true"></div>
+
+<noscript><p class="wrap">Snapsize needs JavaScript to size your photo.</p></noscript>
+<script src="src/core.js"></script>
+<script src="src/flash.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>
