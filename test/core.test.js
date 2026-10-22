@@ -109,3 +109,21 @@ test("mmToPx at 300 dpi", () => {
   assert.equal(C.mmToPx(50.8), 600);
   assert.equal(C.mmToPx(152.4), 1800);
 });
+
+test("Australia and India sizes are present with the right dimensions", () => {
+  assert.equal(C.SPECS.au.w, 35);
+  assert.equal(C.SPECS.au.h, 45);
+  assert.deepEqual(C.SPECS.au.head, [32, 36]);
+  // India is the 2 x 2 inch (51 mm) square.
+  assert.ok(Math.abs(C.SPECS.in.w - 50.8) < 0.01);
+  assert.ok(Math.abs(C.SPECS.in.h - 50.8) < 0.01);
+  assert.deepEqual(C.SPECS.in.head, [25, 35]);
+});
+
+test("a crop for the new sizes lands the head inside the band", () => {
+  for (const id of ["au", "in"]) {
+    const s = C.SPECS[id];
+    const c = C.cropFor(s, marks(500, 400, 1000), { w: 2000, h: 3000 });
+    assert.ok(c.headMm >= s.head[0] && c.headMm <= s.head[1], id + " head " + c.headMm);
+  }
+});
