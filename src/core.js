@@ -39,6 +39,18 @@
       w: 50, h: 70, head: [31, 36],
       bg: "plain white or light colour",
       digital: { w: 1000, h: 1400 }
+    },
+    au: {
+      id: "au", name: "Australia passport", short: "35 x 45 mm",
+      w: 35, h: 45, head: [32, 36],
+      bg: "plain white or light grey",
+      digital: { w: 700, h: 900 }
+    },
+    in: {
+      id: "in", name: "India passport or visa", short: "2 x 2 in",
+      w: 50.8, h: 50.8, head: [25, 35],
+      bg: "plain white or off-white",
+      digital: { w: 600, h: 600, maxBytes: 100 * 1024 }
     }
   };
 
