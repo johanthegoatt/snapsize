@@ -15,6 +15,8 @@
   //   UK: gov.uk/photos-for-passports, 35 x 45 mm, head 29 to 34 mm, digital at least 600 x 750.
   //   EU / Schengen: ICAO 9303 / ISO 19794-5 as used by EU states, head 32 to 36 mm.
   //   Canada: canada.ca photo specs, 50 x 70 mm, head 31 to 36 mm.
+  //   Japan: MOFA / embassy spec, 35 x 45 mm, crown to jaw 34 +/- 2 mm (32 to 36).
+  //   New Zealand: passports.govt.nz, 35 x 45 mm, head 32 to 36 mm (ICAO).
   var SPECS = {
     us: {
       id: "us", name: "US passport or visa", short: "2 x 2 in",
@@ -51,6 +53,18 @@
       w: 50.8, h: 50.8, head: [25, 35],
       bg: "plain white or off-white",
       digital: { w: 600, h: 600, maxBytes: 100 * 1024 }
+    },
+    jp: {
+      id: "jp", name: "Japan passport", short: "35 x 45 mm",
+      w: 35, h: 45, head: [32, 36],
+      bg: "plain light, no pattern",
+      digital: { w: 700, h: 900 }
+    },
+    nz: {
+      id: "nz", name: "New Zealand passport", short: "35 x 45 mm",
+      w: 35, h: 45, head: [32, 36],
+      bg: "plain light grey or white",
+      digital: { w: 700, h: 900 }
     }
   };
 
