@@ -62,6 +62,27 @@ test("tilted head is flagged", () => {
   assert.equal(C.checks(C.SPECS.us, m, c).find((x) => x.id === "tilt").level, "warn");
 });
 
+test("Japan and New Zealand are 35 x 45 mm with a 32 to 36 mm head band", () => {
+  for (const id of ["jp", "nz"]) {
+    const s = C.SPECS[id];
+    assert.equal(s.w, 35, id);
+    assert.equal(s.h, 45, id);
+    assert.deepEqual(s.head, [32, 36], id);
+  }
+});
+
+test("Japan crop lands the head inside its 32 to 36 mm band", () => {
+  const s = C.SPECS.jp;
+  // Same 600 px head on a 2000 x 3000 photo as the shared crop test uses.
+  const c = C.cropFor(s, marks(1000, 400, 1000), { w: 2000, h: 3000 });
+  const headOnPhoto = 600 / c.pxPerMm;
+  assert.ok(headOnPhoto >= s.head[0] && headOnPhoto <= s.head[1], String(headOnPhoto));
+});
+
+test("a 35 x 45 size like New Zealand tiles six-up on a 4x6", () => {
+  assert.equal(C.sheet(C.SPECS.nz, C.PAPERS["4x6"]).count, 6);
+});
+
 test("background check", () => {
   const flat = (v, n = 200) => Array(n).fill(v);
   const noisy = (v, amp) => Array.from({ length: 400 }, (_, i) => v + (i % 2 ? amp : -amp));
