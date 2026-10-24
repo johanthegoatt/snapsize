@@ -183,9 +183,14 @@
     return { w: best.W, h: best.H, count: slots.length, slots: slots };
   }
 
+  // Photo-counter prints (4x6 / 10x15) and ordinary printer paper (A4, US
+  // Letter), so a sheet can be run off at home and the photos cut out. A4 is
+  // ISO 216 (210 x 297 mm); US Letter is 8.5 x 11 in (215.9 x 279.4 mm).
   var PAPERS = {
     "4x6": { id: "4x6", name: "4 x 6 in photo print", w: 152.4, h: 101.6 },
-    "a6": { id: "a6", name: "10 x 15 cm photo print", w: 150, h: 100 }
+    "a6": { id: "a6", name: "10 x 15 cm photo print", w: 150, h: 100 },
+    "a4": { id: "a4", name: "A4 paper", w: 210, h: 297 },
+    "letter": { id: "letter", name: "US Letter paper", w: 215.9, h: 279.4 }
   };
 
   // Find the best JPEG quality that stays under a byte limit. encode(q)
