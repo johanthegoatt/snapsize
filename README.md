@@ -20,7 +20,7 @@ Turn a phone photo into a passport or visa photo at the exact size. Pick the doc
 - Get plain checks: head straight, room around the head, sharp enough to print, and a background check that catches dark walls, a shadow on one side and busy backgrounds.
 - Tick off the things only you can check: no glasses, neutral face, nothing covering it, no filters, taken recently.
 - **Save photo file:** a JPEG at the size forms ask for. The US file is kept under 240 KB.
-- **Save print sheet:** a 300 dpi 4 x 6 with as many photos as fit (two US, six 35 x 45) and lines to cut along.
+- **Save print sheet:** a 300 dpi sheet with as many photos as fit and lines to cut along. Lay it out for a 4 x 6 (or 10 x 15 cm) photo-counter print, or for A4 / US Letter to run off on an ordinary printer (an A4 holds 30 of the 35 x 45 mm size, or 15 US 2 x 2 in).
 
 ## Meet Flash
 
