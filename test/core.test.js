@@ -114,6 +114,17 @@ test("print sheet: two US photos on a 4x6, six 35x45 photos", () => {
   }
 });
 
+test("A4 and Letter fit many more photos than a 4x6 print", () => {
+  assert.equal(C.sheet(C.SPECS.us, C.PAPERS.a4).count, 15);
+  assert.equal(C.sheet(C.SPECS.uk, C.PAPERS.a4).count, 30);
+  assert.equal(C.sheet(C.SPECS.us, C.PAPERS.letter).count, 15);
+  // Every photo still sits inside the page with no overlap.
+  const sh = C.sheet(C.SPECS.uk, C.PAPERS.a4);
+  for (const s of sh.slots) {
+    assert.ok(s.x >= 0 && s.y >= 0 && s.x + s.w <= sh.w + 1e-9 && s.y + s.h <= sh.h + 1e-9);
+  }
+});
+
 test("fitQuality finds the highest quality under the limit", async () => {
   const encode = (q) => Math.round(400000 * q * q); // bytes grow with quality
   const r = await C.fitQuality(encode, 240 * 1024);
