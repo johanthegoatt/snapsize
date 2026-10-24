@@ -289,8 +289,9 @@
     // Save notes.
     var d = spec.digital;
     $("digital-note").textContent = d.w + " x " + d.h + " pixels JPEG" + (d.maxBytes ? ", under " + Math.round(d.maxBytes / 1024) + " KB, as the US online renewal asks." : ".");
-    var sh = C.sheet(spec, C.PAPERS["4x6"]);
-    $("sheet-note").textContent = sh.count + " photos on one 4 x 6 print, with lines to cut along.";
+    var paper = currentPaper();
+    var sh = C.sheet(spec, paper);
+    $("sheet-note").textContent = sh.count + " photos on one " + paper.name + ", with lines to cut along.";
     sheetPreview(crop, sh);
 
     if (sum.worst !== lastWorst) {
@@ -384,13 +385,22 @@
     });
   });
 
+  // Which paper the sheet is laid out for: a photo-counter print or ordinary
+  // A4 / Letter you run off at home. Defaults to the 4 x 6 print.
+  function currentPaper() {
+    var sel = $("paper");
+    return (sel && C.PAPERS[sel.value]) || C.PAPERS["4x6"];
+  }
+  var paperSel = $("paper");
+  if (paperSel) paperSel.addEventListener("change", function () { if (state.work) update(); });
+
   $("dl-sheet").addEventListener("click", function () {
     if (!state.work) return;
-    var crop = currentCrop(), sh = C.sheet(state.spec, C.PAPERS["4x6"]);
+    var paper = currentPaper(), crop = currentCrop(), sh = C.sheet(state.spec, paper);
     var c = document.createElement("canvas");
     renderSheet(c, crop, sh, C.PRINT_DPI);
     toBlob(c, 0.95).then(function (blob) {
-      save(blob, "print-4x6-" + slug() + ".jpg");
+      save(blob, "print-" + paper.id + "-" + slug() + ".jpg");
       Flash.react("saved", { what: "sheet", count: sh.count });
     });
   });

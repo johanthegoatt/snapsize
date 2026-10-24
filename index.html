@@ -97,9 +97,17 @@
       </div>
       <div class="save">
         <h3>To print</h3>
+        <label class="paper-pick">Lay out for
+          <select id="paper">
+            <option value="4x6">a 4 x 6 in print</option>
+            <option value="a6">a 10 x 15 cm print</option>
+            <option value="a4">A4 paper</option>
+            <option value="letter">US Letter paper</option>
+          </select>
+        </label>
         <p id="sheet-note">A 4 x 6 photo with your photos on it and lines to cut along.</p>
         <button class="btn" id="dl-sheet" type="button">Save print sheet</button>
-        <p class="small">Order it as a normal 4 x 6 (10 x 15 cm) print at any photo counter or kiosk. Choose <b>no cropping / fit</b> if asked, so the size stays exact. Then cut along the grey lines.</p>
+        <p class="small">Order it as a normal 4 x 6 (10 x 15 cm) print at a photo counter, or pick A4 / Letter to run it off on an ordinary printer. Choose <b>no cropping / fit</b> if asked, so the size stays exact, then cut along the grey lines.</p>
       </div>
     </div>
     <canvas id="sheet-preview" class="sheet-preview" width="600" height="400" aria-label="Print sheet preview"></canvas>

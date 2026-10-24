@@ -129,6 +129,8 @@ button, input { font: inherit; color: inherit; }
 .save h3 { margin: 0 0 4px; font-size: 17px; }
 .save p { margin: 0 0 12px; }
 .save .small { margin: 12px 0 0; }
+.paper-pick { display: block; font-size: 14px; margin: 0 0 10px; }
+.paper-pick select { margin-left: 6px; padding: 5px 8px; font: inherit; border: 1px solid var(--line); border-radius: 8px; background: var(--card, #fff); color: inherit; }
 .btn { appearance: none; border: 0; background: var(--brand); color: var(--brand-ink); font-weight: 650; padding: 10px 20px; border-radius: 999px; cursor: pointer; min-height: 44px; }
 .btn:hover { background: var(--brand-deep); }
 .sheet-preview { display: block; width: 100%; max-width: 600px; height: auto; margin: 18px auto 0; box-shadow: var(--shadow); border-radius: 4px; }
