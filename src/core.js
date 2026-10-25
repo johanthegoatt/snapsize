@@ -17,6 +17,8 @@
   //   Canada: canada.ca photo specs, 50 x 70 mm, head 31 to 36 mm.
   //   Japan: MOFA / embassy spec, 35 x 45 mm, crown to jaw 34 +/- 2 mm (32 to 36).
   //   New Zealand: passports.govt.nz, 35 x 45 mm, head 32 to 36 mm (ICAO).
+  //   China: visaforchina.cn visa notice, 33 x 48 mm, head height 28 to 33 mm.
+  //   Philippines: DFA consular spec, 35 x 45 mm (4.5 x 3.5 cm), head 32 to 36 mm.
   var SPECS = {
     us: {
       id: "us", name: "US passport or visa", short: "2 x 2 in",
@@ -64,6 +66,18 @@
       id: "nz", name: "New Zealand passport", short: "35 x 45 mm",
       w: 35, h: 45, head: [32, 36],
       bg: "plain light grey or white",
+      digital: { w: 700, h: 900 }
+    },
+    cn: {
+      id: "cn", name: "China visa", short: "33 x 48 mm",
+      w: 33, h: 48, head: [28, 33],
+      bg: "plain white",
+      digital: { w: 390, h: 567 }
+    },
+    ph: {
+      id: "ph", name: "Philippines passport", short: "35 x 45 mm",
+      w: 35, h: 45, head: [32, 36],
+      bg: "plain white",
       digital: { w: 700, h: 900 }
     }
   };
