@@ -159,3 +159,22 @@ test("a crop for the new sizes lands the head inside the band", () => {
     assert.ok(c.headMm >= s.head[0] && c.headMm <= s.head[1], id + " head " + c.headMm);
   }
 });
+
+test("China visa is the 33 x 48 mm size with a 28 to 33 mm head", () => {
+  const s = C.SPECS.cn;
+  assert.equal(s.w, 33);
+  assert.equal(s.h, 48);
+  assert.deepEqual(s.head, [28, 33]);
+  // It is a taller, narrower photo than the 35 x 45 crowd, so its own shape.
+  assert.ok(s.w / s.h < C.SPECS.uk.w / C.SPECS.uk.h);
+  const c = C.cropFor(s, marks(1000, 400, 1000), { w: 2000, h: 3000 });
+  assert.ok(Math.abs(c.w / c.h - 33 / 48) < 1e-9);
+});
+
+test("Philippines passport is the 35 x 45 mm white-background size", () => {
+  const s = C.SPECS.ph;
+  assert.equal(s.w, 35);
+  assert.equal(s.h, 45);
+  assert.deepEqual(s.head, [32, 36]);
+  assert.match(s.bg, /white/);
+});
