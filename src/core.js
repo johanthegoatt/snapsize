@@ -19,6 +19,8 @@
   //   New Zealand: passports.govt.nz, 35 x 45 mm, head 32 to 36 mm (ICAO).
   //   China: visaforchina.cn visa notice, 33 x 48 mm, head height 28 to 33 mm.
   //   Philippines: DFA consular spec, 35 x 45 mm (4.5 x 3.5 cm), head 32 to 36 mm.
+  //   Singapore: ICA spec, 35 x 45 mm, head (chin to crown) 25 to 35 mm, white bg.
+  //   South Korea: 35 x 45 mm, head 25 to 35 mm, white bg (confirm with the consulate).
   var SPECS = {
     us: {
       id: "us", name: "US passport or visa", short: "2 x 2 in",
@@ -79,6 +81,18 @@
       w: 35, h: 45, head: [32, 36],
       bg: "plain white",
       digital: { w: 700, h: 900 }
+    },
+    sg: {
+      id: "sg", name: "Singapore passport or visa", short: "35 x 45 mm",
+      w: 35, h: 45, head: [25, 35],
+      bg: "plain white",
+      digital: { w: 400, h: 514 }
+    },
+    kr: {
+      id: "kr", name: "South Korea passport", short: "35 x 45 mm",
+      w: 35, h: 45, head: [25, 35],
+      bg: "plain white",
+      digital: { w: 413, h: 531 }
     }
   };
 
