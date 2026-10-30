@@ -178,3 +178,16 @@ test("Philippines passport is the 35 x 45 mm white-background size", () => {
   assert.deepEqual(s.head, [32, 36]);
   assert.match(s.bg, /white/);
 });
+
+test("Singapore and South Korea sizes are present with the 25-35 mm head range", () => {
+  for (const id of ["sg", "kr"]) {
+    const s = C.SPECS[id];
+    assert.ok(s, id + " exists");
+    assert.equal(s.w, 35);
+    assert.equal(s.h, 45);
+    assert.deepEqual(s.head, [25, 35]);
+    // a photo at the small end of the head range still crops inside the frame
+    const c = C.cropFor(s, marks(1000, 400, 1000), { w: 2000, h: 3000 });
+    assert.ok(Math.abs(c.w / c.h - 35 / 45) < 1e-9, id + " keeps 35x45 shape");
+  }
+});
