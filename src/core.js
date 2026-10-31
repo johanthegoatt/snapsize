@@ -243,9 +243,35 @@
 
   function mmToPx(mm, dpi) { return Math.round(mm / MM_PER_IN * (dpi || PRINT_DPI)); }
 
+  // Resolution readout: given the pixels in the cropped photo and the spec's
+  // print size, the exact dots-per-inch it would print at, and whether the
+  // photo is big enough for the country's online form. 300 dpi is the common
+  // floor for a sharp print; 600 dpi is the ICAO Doc 9303 quality bar some
+  // systems want. The digital minimum is the country's own online-submission
+  // pixel size (e.g. US 600x600, Singapore 400x514); a photo smaller than that
+  // has to be enlarged to upload, which softens it.
+  function resolution(spec, cw, ch) {
+    cw = Math.round(cw || 0); ch = Math.round(ch || 0);
+    if (!spec || !(cw > 0) || !(ch > 0)) return null;
+    var dpi = Math.round(Math.min(cw / (spec.w / MM_PER_IN), ch / (spec.h / MM_PER_IN)));
+    var dig = spec.digital || null;
+    var meetsDigital = dig ? (cw >= dig.w && ch >= dig.h) : null;
+    return {
+      cw: cw, ch: ch,
+      dpi: dpi,
+      meets300: dpi >= 300,
+      meets600: dpi >= 600,
+      min300: { w: mmToPx(spec.w, 300), h: mmToPx(spec.h, 300) },
+      min600: { w: mmToPx(spec.w, 600), h: mmToPx(spec.h, 600) },
+      digital: dig,
+      meetsDigital: meetsDigital,
+      level: dpi < 300 ? "bad" : dpi < 600 ? "warn" : "ok"
+    };
+  }
+
   return {
     SPECS: SPECS, PAPERS: PAPERS, PRINT_DPI: PRINT_DPI, PRINT_PX_PER_MM: PRINT_PX_PER_MM,
     headTarget: headTarget, cropFor: cropFor, checks: checks, background: background,
-    sheet: sheet, fitQuality: fitQuality, mmToPx: mmToPx
+    sheet: sheet, fitQuality: fitQuality, mmToPx: mmToPx, resolution: resolution
   };
 });
