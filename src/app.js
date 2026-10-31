@@ -222,6 +222,23 @@
     var crop = currentCrop();
     var list = C.checks(state.spec, state.marks, crop);
     list.push(bgCheck(crop));
+
+    // Exact print resolution and whether the photo meets the online form's
+    // minimum pixel size, as numbers on top of the plainer "detail" check.
+    var res = C.resolution(state.spec, crop.w, crop.h);
+    if (res) {
+      var txt = res.level === "bad"
+        ? "This prints at about " + res.dpi + " dpi, below the 300 dpi a sharp print needs. Use a closer or higher-resolution photo."
+        : res.level === "warn"
+          ? "Prints at about " + res.dpi + " dpi, fine for a 300 dpi print. For the 600 dpi quality bar some systems ask for, you'd need about " + res.min600.w + "x" + res.min600.h + " px."
+          : "Prints at about " + res.dpi + " dpi, clearing the 600 dpi quality bar.";
+      var level = res.level;
+      if (res.digital && res.meetsDigital === false) {
+        txt += " It's under " + res.digital.w + "x" + res.digital.h + " px, this country's online-form minimum, so uploading would enlarge and soften it.";
+        if (level === "ok") level = "warn";
+      }
+      list.push({ id: "resolution", level: level, text: txt });
+    }
     var worst = list.some(function (c) { return c.level === "bad"; }) ? "bad" :
       list.some(function (c) { return c.level === "warn"; }) ? "warn" : "ok";
     return { list: list, worst: worst, crop: crop };

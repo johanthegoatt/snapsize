@@ -18,6 +18,7 @@ Turn a phone photo into a passport or visa photo at the exact size. Pick the doc
 - Drag the **top of head** and **chin** lines on your photo, with a mouse, a finger or the arrow keys. Moving one sideways centres the face.
 - See the finished photo live, with guides showing where your chin has to land.
 - Get plain checks: head straight, room around the head, sharp enough to print, and a background check that catches dark walls, a shadow on one side and busy backgrounds.
+- See the exact print resolution: the dots-per-inch your photo would print at for the chosen size, measured against the 300 dpi floor for a sharp print and the 600 dpi quality bar some systems ask for, plus a warning when the photo is smaller than the country's online-form minimum and would be enlarged to upload.
 - Tick off the things only you can check: no glasses, neutral face, nothing covering it, no filters, taken recently.
 - **Save photo file:** a JPEG at the size forms ask for. The US file is kept under 240 KB.
 - **Save print sheet:** a 300 dpi sheet with as many photos as fit and lines to cut along. Lay it out for a 4 x 6 (or 10 x 15 cm) photo-counter print, or for A4 / US Letter to run off on an ordinary printer (an A4 holds 30 of the 35 x 45 mm size, or 15 US 2 x 2 in).
