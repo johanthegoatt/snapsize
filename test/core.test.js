@@ -191,3 +191,40 @@ test("Singapore and South Korea sizes are present with the 25-35 mm head range",
     assert.ok(Math.abs(c.w / c.h - 35 / 45) < 1e-9, id + " keeps 35x45 shape");
   }
 });
+
+test("resolution: exact print DPI from the cropped pixels", () => {
+  // US spec is 50.8 x 50.8 mm (2 x 2 in); a 600 px crop prints at 300 dpi.
+  const r = C.resolution(C.SPECS.us, 600, 600);
+  assert.equal(r.dpi, 300);
+  assert.equal(r.meets300, true);
+  assert.equal(r.meets600, false);
+  assert.equal(r.level, "warn");
+  // minimum pixels for this size at 300 and 600 dpi
+  assert.equal(r.min300.w, 600);
+  assert.equal(r.min600.w, 1200);
+});
+
+test("resolution: a big crop clears the 600 dpi ICAO bar", () => {
+  const r = C.resolution(C.SPECS.us, 1300, 1300);
+  assert.equal(r.meets600, true);
+  assert.equal(r.level, "ok");
+});
+
+test("resolution: a small crop fails the print floor", () => {
+  const r = C.resolution(C.SPECS.us, 400, 400);
+  assert.equal(r.dpi, 200);
+  assert.equal(r.meets300, false);
+  assert.equal(r.level, "bad");
+});
+
+test("resolution: checks the country's online upload minimum", () => {
+  // US digital minimum is 600 x 600
+  const ok = C.resolution(C.SPECS.us, 600, 600);
+  assert.equal(ok.meetsDigital, true);
+  const small = C.resolution(C.SPECS.us, 500, 500);
+  assert.equal(small.meetsDigital, false);
+});
+
+test("resolution: refuses a zero crop", () => {
+  assert.equal(C.resolution(C.SPECS.us, 0, 600), null);
+});
