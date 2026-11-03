@@ -17,6 +17,16 @@ test("UK digital file meets the 600 x 750 minimum", () => {
   assert.ok(d.w >= 600 && d.h >= 750);
 });
 
+test("Thailand and Vietnam specs are present with the right sizes", () => {
+  assert.equal(C.SPECS.th.w, 35);
+  assert.equal(C.SPECS.th.h, 45);
+  assert.deepEqual(C.SPECS.th.head, [32, 36]);
+  assert.equal(C.SPECS.vn.w, 40);
+  assert.equal(C.SPECS.vn.h, 60);
+  // Vietnam's 4x6 shape is taller than the 35x45 papers, so it exercises the crop
+  assert.ok(C.SPECS.vn.h / C.SPECS.vn.w > C.SPECS.th.h / C.SPECS.th.w);
+});
+
 test("crop makes the head the middle of the allowed range", () => {
   for (const s of Object.values(C.SPECS)) {
     const c = C.cropFor(s, marks(1000, 400, 1000), { w: 2000, h: 3000 });
