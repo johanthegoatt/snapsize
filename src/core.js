@@ -21,6 +21,9 @@
   //   Philippines: DFA consular spec, 35 x 45 mm (4.5 x 3.5 cm), head 32 to 36 mm.
   //   Singapore: ICA spec, 35 x 45 mm, head (chin to crown) 25 to 35 mm, white bg.
   //   South Korea: 35 x 45 mm, head 25 to 35 mm, white bg (confirm with the consulate).
+  //   Thailand: visa photo 35 x 45 mm, head 32 to 36 mm, white bg (thaiest / BLS).
+  //   Vietnam: e-visa 40 x 60 mm (4 x 6 cm), white bg, head 65 to 80% of height
+  //     (about 39 to 48 mm), per the Vietnam e-visa portal.
   var SPECS = {
     us: {
       id: "us", name: "US passport or visa", short: "2 x 2 in",
@@ -93,6 +96,18 @@
       w: 35, h: 45, head: [25, 35],
       bg: "plain white",
       digital: { w: 413, h: 531 }
+    },
+    th: {
+      id: "th", name: "Thailand visa", short: "35 x 45 mm",
+      w: 35, h: 45, head: [32, 36],
+      bg: "plain white",
+      digital: { w: 413, h: 531 }
+    },
+    vn: {
+      id: "vn", name: "Vietnam e-visa", short: "40 x 60 mm",
+      w: 40, h: 60, head: [39, 48],
+      bg: "plain white",
+      digital: { w: 400, h: 600 }
     }
   };
 
