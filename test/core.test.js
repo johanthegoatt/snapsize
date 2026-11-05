@@ -27,6 +27,16 @@ test("Thailand and Vietnam specs are present with the right sizes", () => {
   assert.ok(C.SPECS.vn.h / C.SPECS.vn.w > C.SPECS.th.h / C.SPECS.th.w);
 });
 
+test("UAE visa spec is present: 43 x 55 mm, white, its own proportions", () => {
+  assert.equal(C.SPECS.ae.w, 43);
+  assert.equal(C.SPECS.ae.h, 55);
+  assert.deepEqual(C.SPECS.ae.head, [34, 39]);
+  assert.match(C.SPECS.ae.bg, /white/);
+  // the 43x55 shape is its own ratio, between the 35x45 papers and a 2x2 square
+  assert.ok(C.SPECS.ae.h / C.SPECS.ae.w < C.SPECS.uk.h / C.SPECS.uk.w);
+  assert.ok(C.SPECS.ae.h / C.SPECS.ae.w > C.SPECS.us.h / C.SPECS.us.w);
+});
+
 test("crop makes the head the middle of the allowed range", () => {
   for (const s of Object.values(C.SPECS)) {
     const c = C.cropFor(s, marks(1000, 400, 1000), { w: 2000, h: 3000 });
