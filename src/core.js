@@ -22,6 +22,9 @@
   //   Singapore: ICA spec, 35 x 45 mm, head (chin to crown) 25 to 35 mm, white bg.
   //   South Korea: 35 x 45 mm, head 25 to 35 mm, white bg (confirm with the consulate).
   //   Thailand: visa photo 35 x 45 mm, head 32 to 36 mm, white bg (thaiest / BLS).
+  //   UAE: visa photo 43 x 55 mm, white bg, chin-to-crown ~34 to 39 mm (~70-80%
+  //     of the frame); 43 x 55 mm at 300 dpi is 508 x 650 px. Sources vary on
+  //     the head height, so this uses the commonly-cited chin-to-crown band.
   //   Vietnam: e-visa 40 x 60 mm (4 x 6 cm), white bg, head 65 to 80% of height
   //     (about 39 to 48 mm), per the Vietnam e-visa portal.
   var SPECS = {
@@ -108,6 +111,12 @@
       w: 40, h: 60, head: [39, 48],
       bg: "plain white",
       digital: { w: 400, h: 600 }
+    },
+    ae: {
+      id: "ae", name: "UAE visa", short: "43 x 55 mm",
+      w: 43, h: 55, head: [34, 39],
+      bg: "plain white",
+      digital: { w: 508, h: 650 }
     }
   };
 
