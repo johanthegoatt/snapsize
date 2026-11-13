@@ -248,3 +248,17 @@ test("resolution: checks the country's online upload minimum", () => {
 test("resolution: refuses a zero crop", () => {
   assert.equal(C.resolution(C.SPECS.us, 0, 600), null);
 });
+
+test("Malaysia spec is present: 35 x 50 mm, its own taller proportion", () => {
+  assert.equal(C.SPECS.my.w, 35);
+  assert.equal(C.SPECS.my.h, 50);
+  assert.match(C.SPECS.my.bg, /white/);
+  // A 35 x 50 Malaysia photo is taller than the 35 x 45 standard.
+  assert.ok(C.SPECS.my.h / C.SPECS.my.w > C.SPECS.uk.h / C.SPECS.uk.w);
+});
+
+test("Taiwan spec is present: 35 x 45 mm with a 32-36 mm head", () => {
+  assert.equal(C.SPECS.tw.w, 35);
+  assert.equal(C.SPECS.tw.h, 45);
+  assert.deepEqual(C.SPECS.tw.head, [32, 36]);
+});
