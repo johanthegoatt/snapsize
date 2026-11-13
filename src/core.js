@@ -117,6 +117,18 @@
       w: 43, h: 55, head: [34, 39],
       bg: "plain white",
       digital: { w: 508, h: 650 }
+    },
+    my: {
+      id: "my", name: "Malaysia passport or visa", short: "35 x 50 mm",
+      w: 35, h: 50, head: [25, 35],
+      bg: "plain white",
+      digital: { w: 413, h: 591 }
+    },
+    tw: {
+      id: "tw", name: "Taiwan passport or visa", short: "35 x 45 mm",
+      w: 35, h: 45, head: [32, 36],
+      bg: "plain white",
+      digital: { w: 413, h: 531 }
     }
   };
 
