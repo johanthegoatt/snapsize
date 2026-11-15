@@ -308,7 +308,12 @@
     $("digital-note").textContent = d.w + " x " + d.h + " pixels JPEG" + (d.maxBytes ? ", under " + Math.round(d.maxBytes / 1024) + " KB, as the US online renewal asks." : ".");
     var paper = currentPaper();
     var sh = C.sheet(spec, paper);
-    $("sheet-note").textContent = sh.count + " photos on one " + paper.name + ", with lines to cut along.";
+    var noteText = sh.count + " photos on one " + paper.name + ", with lines to cut along.";
+    var best = C.bestSheet(spec).best;
+    if (best && best.paper.id !== paper.id && best.count > sh.count) {
+      noteText += " Tip: a " + best.paper.name + " fits " + best.count + " for fewer sheets.";
+    }
+    $("sheet-note").textContent = noteText;
     sheetPreview(crop, sh);
 
     if (sum.worst !== lastWorst) {
