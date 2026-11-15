@@ -253,9 +253,28 @@
   var PAPERS = {
     "4x6": { id: "4x6", name: "4 x 6 in photo print", w: 152.4, h: 101.6 },
     "a6": { id: "a6", name: "10 x 15 cm photo print", w: 150, h: 100 },
+    "5x7": { id: "5x7", name: "5 x 7 in photo print", w: 177.8, h: 127 },
+    "a5": { id: "a5", name: "A5 paper", w: 148, h: 210 },
     "a4": { id: "a4", name: "A4 paper", w: 210, h: 297 },
     "letter": { id: "letter", name: "US Letter paper", w: 215.9, h: 279.4 }
   };
+
+  // Which paper fits the most copies of this photo, so you can print the fewest
+  // sheets. Lays the photo on every paper and sorts by how many fit, biggest
+  // first; ties keep the smaller (cheaper) paper ahead.
+  function bestSheet(spec, opts) {
+    var papers = (opts && opts.papers) || PAPERS;
+    var rows = Object.keys(papers).map(function (k) {
+      var p = papers[k];
+      var s = sheet(spec, p, opts);
+      return { paper: p, count: s.count, area: p.w * p.h };
+    });
+    rows.sort(function (a, b) {
+      if (b.count !== a.count) return b.count - a.count;
+      return a.area - b.area;
+    });
+    return { best: rows[0], all: rows };
+  }
 
   // Find the best JPEG quality that stays under a byte limit. encode(q)
   // returns a byte count (or a promise of one). Binary search, 6 steps.
@@ -308,6 +327,6 @@
   return {
     SPECS: SPECS, PAPERS: PAPERS, PRINT_DPI: PRINT_DPI, PRINT_PX_PER_MM: PRINT_PX_PER_MM,
     headTarget: headTarget, cropFor: cropFor, checks: checks, background: background,
-    sheet: sheet, fitQuality: fitQuality, mmToPx: mmToPx, resolution: resolution
+    sheet: sheet, bestSheet: bestSheet, fitQuality: fitQuality, mmToPx: mmToPx, resolution: resolution
   };
 });
