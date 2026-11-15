@@ -262,3 +262,31 @@ test("Taiwan spec is present: 35 x 45 mm with a 32-36 mm head", () => {
   assert.equal(C.SPECS.tw.h, 45);
   assert.deepEqual(C.SPECS.tw.head, [32, 36]);
 });
+
+test("new paper sizes are available", () => {
+  assert.ok(C.PAPERS["5x7"]);
+  assert.ok(C.PAPERS["a5"]);
+  assert.equal(C.PAPERS["5x7"].w, 177.8);
+});
+
+test("bestSheet picks the paper that fits the most copies", () => {
+  const spec = C.SPECS.uk; // 35 x 45 mm
+  const r = C.bestSheet(spec);
+  assert.ok(r.best.count > 0);
+  // A4 (210x297) should fit more than a 4x6 print
+  const a4 = r.all.find(x => x.paper.id === "a4");
+  const p4x6 = r.all.find(x => x.paper.id === "4x6");
+  assert.ok(a4.count >= p4x6.count);
+  // best is the top of the sorted list
+  assert.equal(r.best.count, r.all[0].count);
+});
+
+test("bestSheet breaks ties toward the smaller sheet", () => {
+  const spec = C.SPECS.uk;
+  const r = C.bestSheet(spec);
+  for (let i = 1; i < r.all.length; i++) {
+    if (r.all[i].count === r.all[i - 1].count) {
+      assert.ok(r.all[i - 1].area <= r.all[i].area);
+    }
+  }
+});
